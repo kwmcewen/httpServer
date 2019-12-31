@@ -36,9 +36,10 @@ public class JavaHTTPServer implements Runnable{
 		connect = c;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		ServerSocket serverConnect = null;
 		try {
-			ServerSocket serverConnect = new ServerSocket(PORT);
+			serverConnect = new ServerSocket(PORT);
 			System.out.println("Server started.\nListening for connections on port: " + PORT + " ...\n");
 			
 			// we listen until user halts server execution
@@ -53,8 +54,11 @@ public class JavaHTTPServer implements Runnable{
 				Thread thread = new Thread(myServer);
 				thread.start();
 			}
+			
 		} catch (IOException e) {
 			System.err.println("Server Connection error : " + e.getMessage());
+		} finally {
+			serverConnect.close();
 		}
 	}
 
@@ -104,8 +108,7 @@ public class JavaHTTPServer implements Runnable{
 				// file
 				dataOut.write(fileData, 0, fileLength);
 				dataOut.flush();
-				
-				
+					
 			} else {
 				// GET or HEAD method
 				if(fileRequested.endsWith("/")) {
