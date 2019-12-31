@@ -65,7 +65,9 @@ public class JavaHTTPServer implements Runnable{
 	@Override
 	public void run() {
 		// we manage our particular client connection
-		BufferedReader in = null; PrintWriter out = null; BufferedOutputStream dataOut = null;
+		BufferedReader in = null; 
+		PrintWriter out = null; 
+		BufferedOutputStream dataOut = null;
 		String fileRequested = null;
 		
 		try {
